@@ -122,6 +122,17 @@ no need to update the secrets baseline in this case.
 If your commit contains a mixture of false-positives and actual secrets, remove the actual secrets first before
 updating and auditing the secrets baseline.
 
+## Using this with R
+Please follow all the above steps.
+
+After that, we use [renv](https://github.com/rstudio/renv) to manage package dependencies here. Thus, before writing any code, run the following R code in your R session:
+
+```r
+renv::restore()
+```
+
+This will install additional packages that are necessary to work alongside the pre-commit hooks for R code.
+
 ### Note on Jupyter notebook cleaning
 
 It may be necessary or useful to keep certain output cells of a Jupyter notebook, for example charts or graphs

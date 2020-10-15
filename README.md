@@ -14,14 +14,13 @@ This project runs on Python 3.5+. To install required Python packages via `pip`,
 environment](#creating-a-python-virtual-environment); this ensures you do not install the packages globally. Note there
 are additional [requirements](./%7B%7B%20cookiecutter.repo_name%20%7D%7D/README.md#requirements) for the output.
 
-To create a new repository structure from this cookiecutter, install the required Python packages via `pip` by running
-the following command:
+To create a new repository structure from this cookiecutter, install the required Python packages via `pip` by running the following command in your terminal (macOS), shell (Linux) or console (Windows):
 
 ```shell script
 make requirements
 ```
 
-To make developments to this project, install the development Python packages via `pip` using:
+To make developments to this project, install the development Python packages via `pip` by running the following command in your terminal/shell/console:
 
 ```shell script
 make requirements-dev
@@ -31,13 +30,11 @@ Once you have installed the packages, remember to [set up pre-commit hooks](#ins
 
 ### Creating a Python virtual environment
 
-Creating a Python virtual environment depends on whether you are using [base Python](#base-python-interpreter) or
-[Anaconda](#anaconda-interpreter) as your interpreter.
+Creating a Python virtual environment depends on whether you are using [base Python](#base-python-interpreter) or [Anaconda](#anaconda-interpreter) as your interpreter.
 
 #### Base Python interpreter
 
-If you are using base Python, there are multiple ways to create virtual environments in Python using `pip`, including
-(but not limited to):
+If you are using base Python, there are multiple ways to create virtual environments in Python using `pip`, including (but not limited to):
 
 - [`venv`](https://docs.python.org/3/tutorial/venv.html);
 - [`virtualenv`](https://virtualenv.pypa.io/en/stable/);
@@ -48,14 +45,11 @@ Follow the documentation of your chosen method to create a Python virtual enviro
 
 #### Anaconda interpreter
 
-If you are using [Anaconda or `conda`](https://www.anaconda.com/), following their
-[documentation](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) to set up a
-conda environment.
+If you are using [Anaconda or `conda`](https://www.anaconda.com/), following their [documentation](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) to set up a conda environment.
 
 ## Creating a new project
 
-To create a new project using this template, in the folder where you want your project to be located, run the following
-code in your terminal:
+To create a new project using this template, in the folder where you want your project to be located, run the following code in your terminal/shell/console:
 
 ```shell script
 cookiecutter https://github.com/ukgovdatascience/govcookiecutter
@@ -65,62 +59,49 @@ Then following the prompts in your terminal to create the project structure.
 
 ## Installing pre-commit hooks
 
-This repo uses the Python package [`pre-commit`](https://pre-commit.com) to manage pre-commit hooks. Pre-commit hooks
-are actions which are run automatically, typically on each commit, to perform some common set of tasks. For example, a
-pre-commit hook might be used to run any code linting automatically, providing any warnings before code is committed,
-ensuring that all of our code adheres to a certain quality standard.
+This repo uses the Python package [`pre-commit`](https://pre-commit.com) to manage pre-commit hooks. Pre-commit hooks are actions which are run automatically, typically on each commit, to perform some common set of tasks. For example, a pre-commit hook might be used to run any code linting automatically, providing any warnings before code is committed, ensuring that all of our code adheres to a certain quality standard.
 
 For this repo, we are using `pre-commit` for a number of purposes:
 - Checking for any secrets being committed accidentally;
 - Checking for any large files (over 5MB) being committed; and
 - Cleaning Jupyter notebooks, which means removing all outputs and execution counts.
 
-We have configured `pre-commit` to run automatically on _every commit_. By running on each commit, we ensure
-that `pre-commit` will be able to detect all contraventions and keep our repo in a healthy state.
+We have configured `pre-commit` to run automatically on _every commit_. By running on each commit, we ensure that `pre-commit` will be able to detect all contraventions and keep our repo in a healthy state.
 
 In order for `pre-commit` to run, action is needed to configure it on your system.
 - [Install](#installing-python-packages) the `pre-commit` package into your Python environment from
 `requirements-dev.txt`; and
-- Run `pre-commit install` to set-up `pre-commit` to run when code is _committed_.
+- Run `pre-commit install` in your terminal/shell/console to set-up `pre-commit` to run when code is _committed_.
 
 ### Setting up a baseline for the `detect-secrets` hook (if one doesn't already exist)
 
-The `detect-secrets` hook requires that you generate a baseline file if one is not already present within the root
-directory. This is done via running the following at the root of the repo:
+The `detect-secrets` hook requires that you generate a baseline file if one is not already present within the root directory. This is done via running the following at the root of the repo in your terminal/shell/console:
 
 ```shell script
 detect-secrets scan > .secrets.baseline
 ```
 
-Next, audit the baseline that has been generated by running:
+Next, audit the baseline that has been generated by running the following in your terminal/shell/console:
 
 ```shell script
 detect-secrets audit .secrets.baseline
 ```
 
-When you run this command, you'll enter an interactive console and be presented with a list of high-entropy string /
-anything which _could_ be a secret, and asked to verify whether or not this is the case. By doing this, the hook will
-be in a position to know if you're later committing any _new_ secrets to the repo and it will be able to alert you
-accordingly.
+When you run this command, you'll enter an interactive console and be presented with a list of high-entropy string / anything which _could_ be a secret, and asked to verify whether or not this is the case. By doing this, the hook will be in a position to know if you're later committing any _new_ secrets to the repo and it will be able to alert you accordingly.
 
 ### If `pre-commit` detects secrets during commit:
 
-If `pre-commit` detects any secrets when you try to create a commit, it will detail what it found and where to go to
-check the secret.
+If `pre-commit` detects any secrets when you try to create a commit, it will detail what it found and where to go to check the secret.
 
 If the detected secret is a false-positive, you should update the secrets baseline through the following steps:
 
-- Run `detect-secrets scan --update .secrets.baseline` to index the false-positive(s);
-- Next, audit all indexed secrets via `detect-secrets audit .secrets.baseline` (the same as during initial set-up, if a
-secrets baseline doesn't exist); and
-- Finally, ensure that you commit the updated secrets baseline in the same commit as the false-positive(s) it has been
-updated for.
+- Run `detect-secrets scan --update .secrets.baseline` in your terminal/shell/console to index the false-positive(s);
+- Next, audit all indexed secrets via `detect-secrets audit .secrets.baseline` (the same as during initial set-up, if a secrets baseline doesn't exist); and
+- Finally, ensure that you commit the updated secrets baseline in the same commit as the false-positive(s) it has been updated for.
 
-If the detected secret is actually a secret (or other sensitive information), remove the secret and re-commit. There is
-no need to update the secrets baseline in this case.
+If the detected secret is actually a secret (or other sensitive information), remove the secret and re-commit. There is no need to update the secrets baseline in this case.
 
-If your commit contains a mixture of false-positives and actual secrets, remove the actual secrets first before
-updating and auditing the secrets baseline.
+If your commit contains a mixture of false-positives and actual secrets, remove the actual secrets first before updating and auditing the secrets baseline.
 
 ## Using this with R
 Please follow all the above steps.
@@ -135,8 +116,7 @@ This will install additional packages that are necessary to work alongside the p
 
 ### Note on Jupyter notebook cleaning
 
-It may be necessary or useful to keep certain output cells of a Jupyter notebook, for example charts or graphs
-visualising some set of data. To do this, add the following comment at the top of the input block:
+It may be necessary or useful to keep certain output cells of a Jupyter notebook, for example charts or graphs visualising some set of data. To do this, add the following comment at the top of the input block:
 
 ```shell script
 # [keep_output]
@@ -146,6 +126,4 @@ This will tell `pre-commit` not to strip the resulting output of this cell, allo
 
 ## Acknowledgements
 
-This template is based off the
-[DrivenData Cookiecutter Data Science](http://drivendata.github.io/cookiecutter-data-science/) project, especially
-around the `data` and `src` folder structures, and the `make help` command.
+This template is based off the [DrivenData Cookiecutter Data Science](http://drivendata.github.io/cookiecutter-data-science/) project, especially around the `data` and `src` folder structures, and the `make help` command.

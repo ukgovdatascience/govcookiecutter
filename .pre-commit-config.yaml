@@ -11,7 +11,11 @@ repos:
     hooks:
     -   id: detect-secrets
         args: ['--baseline', '.secrets.baseline']
-        exclude: .*/tests/.*
+        exclude: >
+            (?x)^(
+            .*/tests/.*|
+            renv.lock
+            )$
 -   repo: https://github.com/aflc/pre-commit-jupyter
     rev: v1.1.0
     hooks:
@@ -59,13 +63,14 @@ repos:
           .*\.rds|
           .*\.Rds|
           .*\.sh|
-          .*\.RData
+          .*\.RData|
+          renv.lock
           )$
     -   id: lintr
+        exclude: renv/activate.R
     -   id: readme-rmd-rendered
     -   id: parsable-R
     -   id: no-browser-statement
-    -   id: deps-in-desc
 -   repo: local
     hooks:
     -   id: forbid-to-commit

@@ -720,3 +720,4 @@ MigrationBackup/
 # Ignore `example` folder, but not its `README.md`
 example/*
 !example/README.md
+.Rproj.user

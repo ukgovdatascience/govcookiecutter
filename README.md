@@ -109,6 +109,9 @@ Please follow all the above steps.
 After that, we use [renv](https://github.com/rstudio/renv) to manage package dependencies here. Thus, before writing any code, run the following R code in your R session:
 
 ```r
+# installs packages for pre-commit hooks in DESCRIPTION file
+renv::install()
+# installs packages for project captured in renv.lock
 renv::restore()
 ```
 

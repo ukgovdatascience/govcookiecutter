@@ -1,5 +1,5 @@
 # govcookiecutter
-A cookiecutter template for data science projects within UK Government.
+A cookiecutter template for data science projects written in Python or R within UK Government.
 
 This repository replaces the original
 [`cookiecutter-data-science-gds`](https://github.com/ukgovdatascience/cookiecutter-data-science-gds), which has been archived.  Please start using this one.

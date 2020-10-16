@@ -1,0 +1,23 @@
+Package: govcookiecutter
+Title: A Template Data Science Project
+Version: 0.0.0.9000
+Authors@R:
+    person(given = "First",
+           family = "Last",
+           role = c("aut", "cre"),
+           email = "first.last@example.com")
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to
+    pick a license
+Suggests:
+    docopt,
+    git2r,
+    lintr,
+    spelling,
+    styler,
+    usethis
+Encoding: UTF-8
+Language: en-GB
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0

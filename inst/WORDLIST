@@ -17,6 +17,7 @@ aef
 af
 askpass
 assertthat
+aut
 ba
 backports
 bb
@@ -53,6 +54,7 @@ conda
 cookiecutter
 Cookiecutter
 cran
+cre
 cyclocomp
 da
 dade
@@ -63,6 +65,7 @@ desc
 df
 dfcd
 dffd
+docopt
 DrivenData
 eaaad
 eaaf
@@ -100,6 +103,7 @@ fec
 ffd
 fff
 govcookiecutter
+gpl
 highr
 https
 httr
@@ -107,12 +111,14 @@ hunspell
 jsonlite
 Jupyter
 knitr
+LazyData
 lazyeval
 lifecycle
 lintr
 macOS
 magrittr
 methodsS
+mit
 oo
 openssl
 pkgbuild
@@ -129,6 +135,8 @@ renv
 repo
 rex
 rlang
+Roxygen
+RoxygenNote
 rprojroot
 rstudioapi
 stringi
@@ -138,6 +146,7 @@ sys
 testthat
 tibble
 uk
+usethis
 utf
 vctrs
 visualising

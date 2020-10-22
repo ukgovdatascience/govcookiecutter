@@ -715,23 +715,9 @@ MigrationBackup/
 
 # End of https://www.gitignore.io/api/vim,venv,pydev,flask,dotenv,django,direnv,python,virtualenv,pycharm+all,visualstudio,jupyternotebooks
 
-### {{ cookiecutter.project_name }} ###
+### govcookiecutter ###
 
-# Ignore the contents of the `data` folder, except for the `README.md` file
-data/*
-!data/README.md
-
-# Ignore the contents of the `data` sub-folders, except for their `.gitkeep` files; adapted from
-# https://stackoverflow.com/a/20652768
-!data/**/
-data/external/*
-data/raw/*
-data/interim/*
-data/processed/*
-!data/external/.gitkeep
-!data/raw/.gitkeep
-!data/interim/.gitkeep
-!data/processed/.gitkeep
-
-# Ignore the `.secrets` file
-.secrets
+# Ignore `example` folder, but not its `README.md`
+example/*
+!example/README.md
+.Rproj.user

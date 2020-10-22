@@ -5,13 +5,17 @@ repos:
     rev: master
     hooks:
     -   id: flake8
-        args: ['src']
+        args: ['hooks', 'tests', '{{ cookiecutter.repo_name }}/src']
 -   repo: https://github.com/Yelp/detect-secrets
     rev: v0.13.1
     hooks:
     -   id: detect-secrets
         args: ['--baseline', '.secrets.baseline']
-        exclude: .*/tests/.*
+        exclude: >
+            (?x)^(
+            .*/tests/.*|
+            renv.lock
+            )$
 -   repo: https://github.com/aflc/pre-commit-jupyter
     rev: v1.1.0
     hooks:
@@ -26,4 +30,52 @@ repos:
     -   id: check-added-large-files
         args: ['--maxkb=5120']
     -   id: end-of-file-fixer
+        exclude: '\.Rd'
     -   id: trailing-whitespace
+
+# R specific hooks: https://github.com/lorenzwalthert/precommit
+-   repo: https://github.com/lorenzwalthert/precommit
+    rev: v0.1.2
+    hooks:
+    -   id: style-files
+        args: [--style_pkg=styler, --style_fun=tidyverse_style]
+    -   id: roxygenize
+    # codemeta must be above use-tidy-description when both are used
+    # -   id: codemeta-description-updated
+    -   id: use-tidy-description
+    -   id: spell-check
+        exclude: >
+          (?x)^(
+          data/.*|
+          (.*/|)\.Rprofile|
+          (.*/|)\.Renviron|
+          (.*/|)\.gitignore|
+          (.*/|)NAMESPACE|
+          (.*/|)WORDLIST|
+          (.*/|)\.travis.yml|
+          (.*/|)appveyor.yml|
+          (.*/|)\.Rbuildignore|
+          (.*/|)\.pre-commit-.*|
+          .*\.[rR]|
+          .*\.Rproj|
+          .*\.py|
+          .*\.feather|
+          .*\.rds|
+          .*\.Rds|
+          .*\.sh|
+          .*\.RData|
+          renv.lock
+          )$
+    -   id: lintr
+        exclude: renv/activate.R
+    -   id: readme-rmd-rendered
+    -   id: parsable-R
+    -   id: no-browser-statement
+-   repo: local
+    hooks:
+    -   id: forbid-to-commit
+        name: Don't commit common R artifacts
+        entry: Cannot commit .Rhistory, .RData, .Rds or .rds.
+        language: fail
+        files: '\.Rhistory|\.RData|\.Rds|\.rds$'
+        # `exclude: <regex>` to allow committing specific files.

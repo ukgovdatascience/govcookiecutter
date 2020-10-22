@@ -97,6 +97,7 @@ ef
 efb
 efd
 effde
+endif
 fac
 fansi
 fb
@@ -122,6 +123,7 @@ https
 httr
 hunspell
 ini
+JSON
 jsonlite
 Jupyter
 knitr
@@ -161,6 +163,7 @@ sys
 testthat
 tibble
 uk
+untracked
 usethis
 utf
 vcs

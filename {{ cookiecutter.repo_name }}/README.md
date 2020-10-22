@@ -88,7 +88,7 @@ An overview of the folder structure, and the top-level files can be found [here]
 
 ## Installing pre-commit hooks
 
-This repo uses the Python package [`pre-commit`](https://pre-commit.com) to manage pre-commit hooks. Pre-commit hooks 
+This repo uses the Python package [`pre-commit`](https://pre-commit.com) to manage pre-commit hooks. Pre-commit hooks
 are actions which are run automatically, typically on each commit, to perform some common set of tasks. For example, a
 pre-commit hook might be used to run any code linting automatically, providing any warnings before code is committed,
 ensuring that all of our code adheres to a certain quality standard.
@@ -128,7 +128,7 @@ accordingly.
 
 ### If `pre-commit` detects secrets during commit:
 
-If `pre-commit` detects any secrets when you try to create a commit, it will detail what it found and where to go to 
+If `pre-commit` detects any secrets when you try to create a commit, it will detail what it found and where to go to
 check the secret.
 
 If the detected secret is a false-positive, you should update the secrets baseline through the following steps:
@@ -144,6 +144,20 @@ no need to update the secrets baseline in this case.
 
 If your commit contains a mixture of false-positives and actual secrets, remove the actual secrets first before
 updating and auditing the secrets baseline.
+
+## Using this with R
+Please follow all the above steps.
+
+After that, we use [renv](https://github.com/rstudio/renv) to manage package dependencies here. Thus, before writing any code, run the following R code in your R session:
+
+```r
+# installs packages for pre-commit hooks in DESCRIPTION file
+renv::install()
+# installs packages for project captured in renv.lock
+renv::restore()
+```
+
+This will install additional packages that are necessary to work alongside the pre-commit hooks for R code.
 
 ### Note on Jupyter notebook cleaning
 

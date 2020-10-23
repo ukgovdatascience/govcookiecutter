@@ -6,5 +6,6 @@
   "project_version": "0.0.1",
   "create_secrets_file": ["No", "Yes"],
   "departmental_aqa_framework": ["GDS"],
-  "repository_hosting_platform": ["GitHub", "GitLab"]
+  "repository_hosting_platform": ["GitHub", "GitLab"],
+  "add_r_precommit_hooks": ["Yes", "No"]
 }

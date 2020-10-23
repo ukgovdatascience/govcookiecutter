@@ -5,7 +5,7 @@ repos:
     rev: master
     hooks:
     -   id: flake8
-        args: ['hooks', 'tests', '{{ cookiecutter.repo_name }}/src']
+        args: ['src']
 -   repo: https://github.com/Yelp/detect-secrets
     rev: v0.13.1
     hooks:

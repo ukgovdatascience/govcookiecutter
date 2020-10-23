@@ -1,5 +1,5 @@
-# Created by https://www.gitignore.io/api/vim,venv,pydev,flask,dotenv,django,direnv,python,virtualenv,pycharm+all,visualstudio,jupyternotebooks
-# Edit at https://www.gitignore.io/?templates=vim,venv,pydev,flask,dotenv,django,direnv,python,virtualenv,pycharm+all,visualstudio,jupyternotebooks
+# Created by https://www.toptal.com/developers/gitignore/api/vim,venv,pydev,flask,dotenv,django,direnv,python,virtualenv,pycharm+all,visualstudio,jupyternotebooks,R
+# Edit at https://www.toptal.com/developers/gitignore?templates=vim,venv,pydev,flask,dotenv,django,direnv,python,virtualenv,pycharm+all,visualstudio,jupyternotebooks,R
 
 ### direnv ###
 .direnv
@@ -68,20 +68,36 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
+*.py,cover
 .hypothesis/
 .pytest_cache/
+pytestdebug.log
 
 # Translations
 *.mo
+
+# Django stuff:
+
+# Flask stuff:
+instance/
+.webassets-cache
 
 # Scrapy stuff:
 .scrapy
 
 # Sphinx documentation
 docs/_build/
+doc/_build/
 
 # PyBuilder
 target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
 
 # pyenv
 .python-version
@@ -93,11 +109,25 @@ target/
 #   install all needed dependencies.
 #Pipfile.lock
 
-# celery beat schedule file
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+__pypackages__/
+
+# Celery stuff
 celerybeat-schedule
+celerybeat.pid
 
 # SageMath parsed files
 *.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pythonenv*
 
 # Spyder project settings
 .spyderproject
@@ -105,11 +135,6 @@ celerybeat-schedule
 
 # Rope project settings
 .ropeproject
-
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
 
 # mkdocs documentation
 /site
@@ -122,13 +147,17 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# pytype static type analyzer
+.pytype/
+
+# profiling data
+.prof
+
 ### dotenv ###
-.env
 
 ### Flask ###
 instance/*
 !instance/.gitignore
-.webassets-cache
 
 ### Flask.Python Stack ###
 # Byte-compiled / optimized / DLL files
@@ -147,11 +176,19 @@ instance/*
 
 # Translations
 
+# Django stuff:
+
+# Flask stuff:
+
 # Scrapy stuff:
 
 # Sphinx documentation
 
 # PyBuilder
+
+# Jupyter Notebook
+
+# IPython
 
 # pyenv
 
@@ -161,15 +198,17 @@ instance/*
 #   having no cross-platform support, pipenv may install dependencies that don't work, or not
 #   install all needed dependencies.
 
-# celery beat schedule file
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+
+# Celery stuff
 
 # SageMath parsed files
+
+# Environments
 
 # Spyder project settings
 
 # Rope project settings
-
-# Mr Developer
 
 # mkdocs documentation
 
@@ -177,22 +216,23 @@ instance/*
 
 # Pyre type checker
 
+# pytype static type analyzer
+
+# profiling data
+
 ### JupyterNotebooks ###
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
 
-.ipynb_checkpoints
 */.ipynb_checkpoints/*
 
 # IPython
-profile_default/
-ipython_config.py
 
 # Remove previous ipynb_checkpoints
 #   git rm -r .ipynb_checkpoints/
 
 ### PyCharm+all ###
-# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff
@@ -222,6 +262,9 @@ ipython_config.py
 # When using Gradle or Maven with auto-import, you should exclude module files,
 # since they will be recreated, and may cause churn.  Uncomment if using
 # auto-import.
+# .idea/artifacts
+# .idea/compiler.xml
+# .idea/jarRepositories.xml
 # .idea/modules.xml
 # .idea/*.iml
 # .idea/modules
@@ -278,6 +321,7 @@ modules.xml
 .idea/sonarlint
 
 ### pydev ###
+.pydevproject
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
@@ -296,11 +340,19 @@ modules.xml
 
 # Translations
 
+# Django stuff:
+
+# Flask stuff:
+
 # Scrapy stuff:
 
 # Sphinx documentation
 
 # PyBuilder
+
+# Jupyter Notebook
+
+# IPython
 
 # pyenv
 
@@ -310,15 +362,17 @@ modules.xml
 #   having no cross-platform support, pipenv may install dependencies that don't work, or not
 #   install all needed dependencies.
 
-# celery beat schedule file
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+
+# Celery stuff
 
 # SageMath parsed files
+
+# Environments
 
 # Spyder project settings
 
 # Rope project settings
-
-# Mr Developer
 
 # mkdocs documentation
 
@@ -326,21 +380,71 @@ modules.xml
 
 # Pyre type checker
 
+# pytype static type analyzer
+
+# profiling data
+
+### R ###
+# History files
+.Rhistory
+.Rapp.history
+
+# Session Data files
+.RData
+
+# User-specific files
+.Ruserdata
+
+# Example code in package build process
+*-Ex.R
+
+# Output files from R CMD build
+/*.tar.gz
+
+# Output files from R CMD check
+/*.Rcheck/
+
+# RStudio files
+.Rproj.user/
+
+# produced vignettes
+vignettes/*.html
+vignettes/*.pdf
+
+# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
+.httr-oauth
+
+# knitr and R markdown default cache directories
+*_cache/
+/cache/
+
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+
+# R Environment Variables
+.Renviron
+
+### R.Bookdown Stack ###
+# R package: bookdown caching files
+/*_files/
+
 ### venv ###
 # Virtualenv
 # http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
 pyvenv.cfg
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
 pip-selfcheck.json
 
 ### Vim ###
 # Swap
 [._]*.s[a-v][a-z]
+!*.svg  # comment out if you don't need vector files
 [._]*.sw[a-p]
 [._]s[a-rt-v][a-z]
 [._]ss[a-gi-z]
@@ -353,10 +457,8 @@ Sessionx.vim
 # Temporary
 .netrwhist
 *~
-
 # Auto-generated tag files
 tags
-
 # Persistent undo
 [._]*.un~
 
@@ -399,6 +501,7 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+[Ll]ogs/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -438,6 +541,7 @@ StyleCopReport.xml
 *_p.c
 *_h.h
 *.ilk
+*.meta
 *.obj
 *.iobj
 *.pch
@@ -506,6 +610,9 @@ _TeamCity*
 # AxoCover is a Code Coverage Tool
 .axoCover/*
 !.axoCover/settings.json
+
+# Coverlet is a free, cross platform Code Coverage Tool
+coverage*[.json, .xml, .info]
 
 # Visual Studio code coverage results
 *.coverage
@@ -713,11 +820,28 @@ healthchecksdb
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
 
-# End of https://www.gitignore.io/api/vim,venv,pydev,flask,dotenv,django,direnv,python,virtualenv,pycharm+all,visualstudio,jupyternotebooks
+# Ionide (cross platform F# VS Code tools) working folder
+.ionide/
 
-### govcookiecutter ###
+# End of https://www.toptal.com/developers/gitignore/api/vim,venv,pydev,flask,dotenv,django,direnv,python,virtualenv,pycharm+all,visualstudio,jupyternotebooks,R
 
-# Ignore `example` folder, but not its `README.md`
-example/*
-!example/README.md
-.Rproj.user
+### {{ cookiecutter.project_name }} ###
+
+# Ignore the contents of the `data` folder, except for the `README.md` file
+data/*
+!data/README.md
+
+# Ignore the contents of the `data` sub-folders, except for their `.gitkeep` files; adapted from
+# https://stackoverflow.com/a/20652768
+!data/**/
+data/external/*
+data/raw/*
+data/interim/*
+data/processed/*
+!data/external/.gitkeep
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+# Ignore the `.secrets` file
+.secrets

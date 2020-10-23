@@ -144,7 +144,7 @@ no need to update the secrets baseline in this case.
 
 If your commit contains a mixture of false-positives and actual secrets, remove the actual secrets first before
 updating and auditing the secrets baseline.
-
+{% if cookiecutter.add_r_precommit_hooks == "Yes" %}
 ## Using this with R
 Please follow all the above steps.
 
@@ -158,7 +158,7 @@ renv::restore()
 ```
 
 This will install additional packages that are necessary to work alongside the pre-commit hooks for R code.
-
+{% endif -%}
 ### Note on Jupyter notebook cleaning
 
 It may be necessary or useful to keep certain output cells of a Jupyter notebook, for example charts or graphs

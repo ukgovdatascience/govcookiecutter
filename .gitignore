@@ -856,6 +856,9 @@ MigrationBackup/
 
 ### govcookiecutter ###
 
+# Ignore the `docs/reference/api` folder
+docs/reference/api/*
+
 # Ignore `example` folder, but not its `README.md`
 example/*
 !example/README.md

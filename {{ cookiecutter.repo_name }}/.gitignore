@@ -872,5 +872,8 @@ data/processed/*
 !data/interim/.gitkeep
 !data/processed/.gitkeep
 
+# Ignore the `docs/reference/api` folder
+docs/reference/api/*
+
 # Ignore the `.secrets` file
 .secrets

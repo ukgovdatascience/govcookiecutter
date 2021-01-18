@@ -1,4 +1,7 @@
 .PHONY:
+	coverage
+	coverage_html
+	coverage_xml
 	docs
 	docs_check_external_links
 	example
@@ -41,6 +44,18 @@ example: prepare_example_folder requirements
 ## Test build the cookiecutter template but allow the user to input options
 example_with_options: prepare_example_folder requirements
 	python3 -m cookiecutter . -o ./example
+
+## Run code coverage
+coverage: requirements
+	coverage run -m pytest
+
+## Run code coverage, and produce a HTML output
+coverage_html: coverage
+	coverage html
+
+## Run code coverage, and produce an XML output
+coverage_xml: coverage
+	coverage xml
 
 ## Get help on all make commands; referenced from https://github.com/drivendata/cookiecutter-data-science
 help:

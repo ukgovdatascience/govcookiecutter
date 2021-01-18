@@ -6,3 +6,4 @@ exclude = venv*,__pycache__,node_modules,bower_components,migrations
 ignore = D203,W503
 max-complexity = 9
 max-line-length = 120
+per-file-ignores = __init__.py:F401

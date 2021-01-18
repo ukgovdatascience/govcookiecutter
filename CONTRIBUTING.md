@@ -11,6 +11,7 @@ still have questions, please [contact us][email] and we'd be happy to help!
   - [Markdown](#markdown)
 - [Testing](#testing)
 - [Documentation](#documentation)
+- [HM Government department frameworks](#hm-government-department-frameworks)
 
 ## Code of Conduct
 
@@ -100,6 +101,12 @@ unless it's more appropriate to store it elsewhere, like this file.
 Further information on how to write Sphinx documentation, and how to build it into a searchable website can be found
 [here][docs-write-sphinx-documentation].
 
+## HM Government department frameworks
+
+HM Government frameworks are stored in the `.govcookiecutter/department_frameworks` folder. If you would like to add
+your own department's framework, follow the [instructions][docs-govcookiecutter-frameworks] in the `README.md` file in
+that folder.
+
 ---
 
 <a name="footnote-1">[1]</a>: Only secrets of specific patterns are detected by the pre-commit hooks. See
@@ -107,6 +114,7 @@ Further information on how to write Sphinx documentation, and how to build it in
 
 [code-of-conduct]: ./CODE_OF_CONDUCT.md
 [coverage]: https://coverage.readthedocs.io/
+[docs-govcookiecutter-frameworks]: ./%7B%7B%20cookiecutter.repo_name%20%7D%7D/.govcookiecutter/department_frameworks/README.md
 [docs-pre-commit-hooks]: ./%7B%7B%20cookiecutter.repo_name%20%7D%7D/docs/contributor_guide/pre_commit_hooks.md
 [docs-pre-commit-hooks-secrets-definition]: ./%7B%7B%20cookiecutter.repo_name%20%7D%7D/docs/contributor_guide/pre_commit_hooks.md#definition-of-a-secret-according-to-detect-secrets
 [docs-updating-gitignore]: ./%7B%7B%20cookiecutter.repo_name%20%7D%7D/docs/contributor_guide/updating_gitignore.md
@@ -116,6 +124,7 @@ Further information on how to write Sphinx documentation, and how to build it in
 [gds-way-git]: https://gds-way.cloudapps.digital/standards/source-code.html
 [gds-way-python]: https://gds-way.cloudapps.digital/manuals/programming-languages/python/python.html#python-style-guide
 [govcookiecutter]: https://github.com/ukgovdatascience/govcookiecutter
+[govcookiecutter-frameworks]: ./%7B%7B%20cookiecutter.repo_name%20%7D%7D/.govcookiecutter/department_frameworks
 [myst]: https://myst-parser.readthedocs.io/
 [pre-commit]: https://pre-commit.com/
 [pytest]: https://docs.pytest.org/

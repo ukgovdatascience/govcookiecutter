@@ -25,6 +25,6 @@ This pull/merge request meets the following requirements:
 
 Comments have been added below around the incomplete checks.
 
+[agilemodeling]: http://agilemodeling.com/essays/documentLate.htm
 [data-ethics-framework]: https://www.gov.uk/government/publications/data-ethics-framework
 [gds-way]: https://gds-way.cloudapps.digital/standards/pull-requests.html
-[agilemodeling]: http://agilemodeling.com/essays/documentLate.htm

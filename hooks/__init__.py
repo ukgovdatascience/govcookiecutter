@@ -1,0 +1,1 @@
+from hooks.post_gen_project import remove_folder, set_aqa_framework, set_request_template

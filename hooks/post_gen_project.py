@@ -1,84 +1,101 @@
+from pathlib import Path
 from shutil import rmtree
-import os
-
-# Define the folder path to the 'docs/aqa_frameworks' folder, and the future `docs/aqa` folder
-DIR_DOCS_AQA_FRAMEWORKS = os.path.join("docs", "aqa_frameworks")
-DIR_DOCS_AQA = os.path.join("docs", "aqa")
-
-# Define the folder path to the `docs/pull_merge_request_templates` folder
-DIR_REQUEST_TEMPLATES = os.path.join("docs", "pull_merge_request_templates")
-
-# Define the folder path where pull/merge requests should exist as values in a dictionary, where the keys are the
-# remote hosts
-DIR_HOST_REQUEST_TEMPLATE = {
-    "GitHub": [os.path.join(".github"), "pull_request_template.md"],
-    "GitLab": [os.path.join(".gitlab", "merge_request_templates"), "{{ cookiecutter.project_name }}.md"]
-}
+from typing import Union
 
 
-def select_department_aqa_framework(user_option: str, default_option: str = "GDS") -> None:
-    """Create analytical quality assurance (AQA) documents for a specific HM Government department.
+def remove_folder(folder: Union[Path, str]) -> None:
+    """Remove a folder.
 
     Args:
-        user_option: User option that defines a HM Government departmental AQA framework to use.
-        default_option: Default: GDS. Default option if `user_option` is not an existing framework.
+        folder: A folder path to be removed.
 
     Returns:
-        A new folder in the template called `docs/aqa` containing the selected HM Government departmental AQA framework.
+        None - removes the `folder` folder.
+
+    """
+    rmtree(folder)
+
+
+def set_aqa_framework(dir_department_framework_aqa: Union[Path, str],
+                      dir_cookiecutter_docs_aqa: Union[Path, str]) -> None:
+    """Set a specific HM Government department analytical quality assurance (AQA) framework.
+
+    Args:
+        dir_department_framework_aqa: A folder path that contains a specific HM Government department AQA framework.
+        dir_cookiecutter_docs_aqa: A folder path within the outputted project structure, where the contents of
+            `dir_department_framework_aqa` will reside.
+
+    Returns:
+        The department-specific AQA framework in the outputted project structure's `dir_cookiecutter_docs_aqa` folder.
 
     """
 
-    # Get all the directories in `DIR_DOCS_AQA_FRAMEWORKS`
-    all_folders = [d for d in os.listdir(DIR_DOCS_AQA_FRAMEWORKS) if os.path.isdir(d)]
+    # Remove the default `docs/aqa` folder, and its contents. Then recursively create a new folder path to here
+    remove_folder(dir_cookiecutter_docs_aqa)
 
-    # Select the correct folder; use `default_option` if `user_option` is not a valid sub-folder in `all_folders`
-    selected_folder = user_option if user_option in all_folders else default_option
-
-    # Copy the relevant HM Government departmental AQA framework to the `docs/aqa` folder, using `default_option` if
-    # `user_option` is not a valid sub-folder in `DIR_DOCS_AQA_FRAMEWORKS`
-    os.rename(os.path.join(DIR_DOCS_AQA_FRAMEWORKS, selected_folder), DIR_DOCS_AQA)
-
-    # Remove all framework folders now we have the correct AQA framework
-    rmtree(DIR_DOCS_AQA_FRAMEWORKS)
+    # Copy the relevant HM Government departmental AQA framework to the `docs/aqa` folder
+    _ = Path(dir_department_framework_aqa).rename(dir_cookiecutter_docs_aqa)
 
 
-def select_request_template(user_option: str, repository_hosting_platform: str, default_option: str = "GDS") -> None:
-    """Select a pull/merge request template depending on HM Government department, and repository hosting platform.
+def set_request_template(path_department_framework_request_template: Union[Path, str],
+                         dir_govcookiecutter: Union[Path, str], repository_hosting_platform: str) -> None:
+    """Set a pull or merge request template in the outputted project structure for a specific HM Government department.
+
+    A pull request template is created if the user chooses GitHub as their repository hosting platform. A merge request
+    template is created if they choose GitLab instead.
 
     Args:
-        user_option: User option that defines a HM Government departmental pull/merge request template to use.
-        repository_hosting_platform: Repository hosting platform name. Must be one of `GitHub` or `GitLab`
-        default_option: Default: GDS. Default option if user_option is not an existing pull/merge request
-            template.
+        path_department_framework_request_template: A file path to the specific HM Government department pull or merge
+            request template.
+        dir_govcookiecutter: A folder path to the outputted `govcookiecutter` template.
+        repository_hosting_platform: The repository hosting platform. Must be one of "GitHub" or "GitLab" (case
+            insensitive).
 
     Returns:
-        A pull/merge request template in the correct location for the selected `repository_hosting_platform`.
+        A department-specific pull or merge request template in the correct location, depending on their choice of
+        GitHub or GitLab as the repository hosting platform. If neither GitHub or GitLab are chosen, a `ValueError` is
+        raised.
 
     """
 
-    # Get all Markdown files in `DIR_REQUEST_TEMPLATES`
-    md_files = [os.path.splitext(f)[0] for f in os.listdir(DIR_REQUEST_TEMPLATES) if f.endswith(".md")]
+    # Define the file path where the request template will be moved, which is dependent on the repository hosting
+    # platform. If the `dir_request_template` is not initially one of `.github` or `.gitlab`, raise a `ValueError`
+    if repository_hosting_platform.lower() == "github":
+        path_request_template = Path(dir_govcookiecutter).joinpath(f".{repository_hosting_platform.lower()}",
+                                                                   "pull_request_template.md")
+    elif repository_hosting_platform.lower() == "gitlab":
+        path_request_template = Path(dir_govcookiecutter).joinpath(f".{repository_hosting_platform.lower()}",
+                                                                   "merge_request_templates",
+                                                                   "{{ cookiecutter.project_name }}.md")
+    else:
+        raise ValueError("`repository_hosting_platform` must be one of `GitHub` or `GitLab`: "
+                         f"{repository_hosting_platform}")
 
-    # Determine the selected file; fallback to `default_option` if `user_option` is not in `md_files`
-    selected_md_file = f"{user_option if user_option in md_files else default_option}.md"
+    # Recursively create all the directories to the parent directory of `path_request_template` if they do not already
+    # exist
+    if not path_request_template.parent.is_dir():
+        path_request_template.parent.mkdir(parents=True, exist_ok=True)
 
-    # Create a directory for the new location
-    if not os.path.isdir(DIR_HOST_REQUEST_TEMPLATE[repository_hosting_platform][0]):
-        os.makedirs(DIR_HOST_REQUEST_TEMPLATE[repository_hosting_platform][0], exist_ok=True)
-
-    # Move the `selected_md_file` to the correct location
-    os.rename(os.path.join(DIR_REQUEST_TEMPLATES, selected_md_file),
-              os.path.join(*DIR_HOST_REQUEST_TEMPLATE[repository_hosting_platform]))
-
-    # Remove all pull/merge request templates now that we have the correct one
-    rmtree(DIR_REQUEST_TEMPLATES)
+    # Move the `path_department_framework_request_template` to `path_request_template`
+    _ = Path(path_department_framework_request_template).rename(path_request_template)
 
 
 if __name__ == "__main__":
 
-    # Select the appropriate AQA framework
-    select_department_aqa_framework("{{ cookiecutter.departmental_aqa_framework }}")
+    # Define the folder path to `.govcookiecutter`
+    DIR_GOVCOOKIECUTTER = Path(".govcookiecutter")
 
-    # Select the appropriate pull/merge request template
-    select_request_template("{{ cookiecutter.departmental_aqa_framework }}",
-                            "{{ cookiecutter.repository_hosting_platform }}")
+    # Check `{{ cookiecutter.departmental_framework }}` is not `N/A`
+    if "{{ cookiecutter.departmental_framework }}" != "N/A":
+
+        # Define the folder path to the specific department framework of interest in the `department_frameworks` folder
+        DIR_DEPARTMENT_FRAMEWORKS = DIR_GOVCOOKIECUTTER.joinpath("department_frameworks",
+                                                                 "{{ cookiecutter.departmental_framework }}")
+
+        # Transfer the `aqa` folder, and the pull/merge request templates to the correct folder paths
+        set_aqa_framework(DIR_DEPARTMENT_FRAMEWORKS.joinpath("aqa"), Path("docs").joinpath("aqa"))
+        set_request_template(DIR_DEPARTMENT_FRAMEWORKS.joinpath("request_template.md"), Path.cwd(),
+                             "{{ cookiecutter.repository_hosting_platform }}")
+
+    # Remove `DIR_GOVCOOKIECUTTER`
+    remove_folder(DIR_GOVCOOKIECUTTER)

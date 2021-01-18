@@ -5,7 +5,7 @@
   "repository_hosting_platform": ["GitHub", "GitLab"],
   "organisation_name": "Your GitHub/GitLab organisation name",
   "contact_email": "organisation@email.address",
-  "departmental_aqa_framework": ["GDS"],
+  "departmental_framework": ["GDS", "N/A"],
 
   "project_name": "Your new project name",
   "repo_name": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",

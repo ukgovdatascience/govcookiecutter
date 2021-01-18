@@ -5,5 +5,6 @@ in `hooks.*` namespace are public.
 
 ```{toctree}
 :maxdepth: 2
+./pre_gen_project.md
 ./post_gen_project.md
 ```

@@ -12,8 +12,12 @@
 
 ## Install the Python requirements for contributors, and install pre-commit hooks
 requirements:
-	python3 -m pip install -U pip setuptools
-	python3 -m pip install -r requirements.txt
+	{% if cookiecutter.package_manager != "pip" -%}
+	conda env create -f environment.yml
+	{% endif -%}
+	{%- if cookiecutter.package_manager != "conda" %}python -m pip install -U pip setuptools
+	python -m pip install -r requirements.txt
+	{% endif -%}
 	pre-commit install
 
 ## Create a `docs/_build` folder, if it doesn't exist. Otherwise delete any sub-folders and their contents within it

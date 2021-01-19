@@ -15,8 +15,8 @@
 
 ## Install the Python requirements for contributors, and install pre-commit hooks
 requirements:
-	python3 -m pip install -U pip setuptools
-	python3 -m pip install -r requirements.txt
+	python -m pip install -U pip setuptools
+	python -m pip install -r requirements.txt
 	pre-commit install
 
 ## Create a `docs/_build` folder, if it doesn't exist. Otherwise delete any sub-folders and their contents within it
@@ -39,11 +39,11 @@ prepare_example_folder:
 
 ## Test build the cookiecutter template with all default options selected
 example: prepare_example_folder requirements
-	python3 -m cookiecutter . -o ./example --no-input
+	python -m cookiecutter . -o ./example --no-input
 
 ## Test build the cookiecutter template but allow the user to input options
 example_with_options: prepare_example_folder requirements
-	python3 -m cookiecutter . -o ./example
+	python -m cookiecutter . -o ./example
 
 ## Run code coverage
 coverage: requirements

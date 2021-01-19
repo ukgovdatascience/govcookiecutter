@@ -16,5 +16,6 @@ These `hooks` package functions are executed after the project structure has bee
     remove_folder
     set_aqa_framework
     set_request_template
+    set_requirements_or_environment_file
 
 ```

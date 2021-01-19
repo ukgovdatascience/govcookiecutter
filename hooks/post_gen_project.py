@@ -80,6 +80,32 @@ def set_request_template(path_department_framework_request_template: Union[Path,
     _ = Path(path_department_framework_request_template).rename(path_request_template)
 
 
+def set_requirements_or_environment_file(package_manager: str, path_pip_requirements_txt: Union[Path, str],
+                                         path_conda_environment_yml: Union[Path, str]) -> None:
+    """Depending on the package manager, select the correct requirements/environment file for the output project.
+
+    Args:
+        package_manager: Must be one of `pip` or `conda`.
+        path_pip_requirements_txt: A path to a `requirements.txt` file that is used by `pip`.
+        path_conda_environment_yml: A path to a `environment.yml` file that is used by `conda`.
+
+    Returns:
+        None. If `package_manager` is `pip`, the file at `path_conda_environment_yml` is removed. If `package_manger`
+        is `conda`, the file at `path_pip_requirements_txt` is removed. If `package_manager` is not one of `pip` or
+        `conda`, then a `ValueError` is raised.
+
+    """
+
+    # Select the correct requirements or environment file, depending on `package_manager`. If `package_manager` is not
+    # one of `pip` or `conda`, raise a `ValueError`.
+    if package_manager == "pip":
+        Path(path_conda_environment_yml).unlink()
+    elif package_manager == "conda":
+        Path(path_pip_requirements_txt).unlink()
+    else:
+        raise ValueError(f"`package_manager` must be one of `pip` or `conda`: {package_manager}")
+
+
 if __name__ == "__main__":
 
     # Define the folder path to `.govcookiecutter`
@@ -99,3 +125,9 @@ if __name__ == "__main__":
 
     # Remove `DIR_GOVCOOKIECUTTER`
     remove_folder(DIR_GOVCOOKIECUTTER)
+
+    # Check `{{ cookiecutter.package_manager }}` is not `pip+conda`; if not remove either the `requirements.txt`, or
+    # `environment.yml` file depending on the selected package manager
+    if "{{ cookiecutter.package_manager }}" != "pip+conda":
+        set_requirements_or_environment_file("{{ cookiecutter.package_manager }}", Path("requirements.txt"),
+                                             Path("environment.yml"))

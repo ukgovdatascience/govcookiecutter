@@ -6,6 +6,7 @@
   "organisation_name": "Your GitHub/GitLab organisation name",
   "contact_email": "organisation@email.address",
   "departmental_framework": ["GDS", "N/A"],
+  "package_manager": ["pip", "conda", "pip+conda"],
 
   "project_name": "Your new project name",
   "repo_name": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",

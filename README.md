@@ -32,8 +32,8 @@ secrets<sup>[1](#footnote-1)</sup>, large data files, and Jupyter notebook outpu
 
 ## Getting started with `govcookiecutter` for your projects
 
-> ⚠️ Only Unix-based systems (macOS, Linux, ...), and Python projects for GitHub or GitLab are supported — feel free to
-> [contribute](#contributing) to support other operating systems/programming languages!
+> ⚠️ Only Python projects for GitHub or GitLab are supported — feel free to [contribute](#contributing)! For Windows
+> support, see this [guidance][docs-windows-support].
 
 To use this template to start your next coding project, make sure your system meets the
 [requirements](#requirements-to-create-a-cookiecutter-template).
@@ -58,9 +58,8 @@ Otherwise, that's it — happy coding! 🎉
 
 To get started your system should meet the following requirements:
 
-1. Unix-based system (macOS, Linux, ...)
-2. Python 3.5+ installed
-3. The [`cookiecutter` package installed](#installing-cookiecutter)
+1. Python 3.5+ installed
+2. The [`cookiecutter` package installed](#installing-cookiecutter)
 
 #### Installing cookiecutter
 
@@ -127,6 +126,7 @@ template data and src folder structures, and the `make help` commands in the Mak
 [aqua-book]: https://www.gov.uk/government/publications/the-aqua-book-guidance-on-producing-quality-analysis-for-government
 [aqua-book-resources]: https://www.gov.uk/government/collections/aqua-book-resources
 [docs-pre-commit-hooks-secrets-definition]: ./%7B%7B%20cookiecutter.repo_name%20%7D%7D/docs/contributor_guide/pre_commit_hooks.md#definition-of-a-secret-according-to-detect-secrets
+[docs-windows-support]: ./%7B%7B%20cookiecutter.repo_name%20%7D%7D/docs/user_guide/windows_support.md
 [contributing]: ./CONTRIBUTING.md
 [cookiecutter]: https://github.com/cookiecutter/cookiecutter
 [drivendata]: http://drivendata.github.io/cookiecutter-data-science/

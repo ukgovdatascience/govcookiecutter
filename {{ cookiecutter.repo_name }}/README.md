@@ -21,6 +21,8 @@ make requirements
 
 ### Requirements
 
+> ⚠️ For Windows support, see this [guidance][docs-windows-support].
+
 - A `.secrets` file with the [required secrets and credentials](#required-secrets-and-credentials)
 - [Load environment variables][docs-loading-environment-variables] from `.envrc`
 
@@ -59,4 +61,5 @@ This project structure is based on the [`govcookiecutter`][govcookiecutter] temp
 [govcookiecutter]: https://github.com/ukgovdatascience/govcookiecutter
 [docs-loading-environment-variables]: ./docs/user_guide/loading_environment_variables.md
 [docs-loading-environment-variables-secrets]: ./docs/user_guide/loading_environment_variables.md#storing-secrets-and-credentials
+[docs-windows-support]: ./docs/user_guide/windows_support.md
 [pre-commit]: https://pre-commit.com/

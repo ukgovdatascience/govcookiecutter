@@ -7,7 +7,7 @@ These `hooks` package functions are executed after the project structure has bee
 .. currentmodule:: hooks
 ```
 
-## HM Government department framework functions
+## Public sector department framework functions
 
 ```{eval-rst}
 .. autosummary::

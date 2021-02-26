@@ -13,7 +13,7 @@ A cookiecutter template for analytical, code-based projects within Her Majesty's
 
 ## Who/what is this for?
 
-This template is for any HM Government analyst(s) who codes! It's main purpose is to:
+This template is for any public sector analyst(s) who codes! It's main purpose is to:
 
 1. Provide a lightweight, Agile-like approach to Analytical Quality Assurance (AQA)
 2. Help quickly set up standardised project structures.
@@ -24,7 +24,7 @@ Rather than using different files and locations to store AQA and documentation, 
 of this as possible onto your Git repository hosting platform, e.g. GitHub or GitLab.
 
 We use nudges, such as checklists in pull/merge requests, to minimise the burden on contributors and reviewers to
-complete AQA checks. This results in faster iterative development and deployment, whilst ensuring HM Government-wide
+complete AQA checks. This results in faster iterative development and deployment, whilst ensuring public sector-wide
 standards on assurance are met.
 
 We have also included [pre-commit hooks][pre-commit] to prevent accidental committing of

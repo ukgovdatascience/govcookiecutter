@@ -1,6 +1,6 @@
 # `department_frameworks` folder
 
-This folder contains all HM Government department-specific frameworks. Each sub-folder is named for a department, and
+This folder contains all public sector department-specific frameworks. Each sub-folder is named for a department, and
 the name must be listed in the `departmental_framework` variable in the root-level `cookiecutter.json` file to be used;
 see the `GDS` folder for an example framework structure.
 

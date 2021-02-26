@@ -74,7 +74,7 @@ The [contributing guidelines][contributing] for this project.
 
 A JSON file containing the prompts and default values during template generation. Note any keys beginning with an
 underscore are not shown to users. The first block of JSON refers to cookiecutter extensions. The next block relates to
-departmental-specific information, such as your HM Government department, and its organisation handle on GitHub or
+departmental-specific information, such as your public sector department, and its organisation handle on GitHub or
 GitLab. The last block relates to project-specific information.
 
 For further information, see the [cookiecutter][cookiecutter] package documentation.

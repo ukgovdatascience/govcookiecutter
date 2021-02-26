@@ -18,10 +18,10 @@ def remove_folder(folder: Union[Path, str]) -> None:
 
 def set_aqa_framework(dir_department_framework_aqa: Union[Path, str],
                       dir_cookiecutter_docs_aqa: Union[Path, str]) -> None:
-    """Set a specific HM Government department analytical quality assurance (AQA) framework.
+    """Set a specific public sector department analytical quality assurance (AQA) framework.
 
     Args:
-        dir_department_framework_aqa: A folder path that contains a specific HM Government department AQA framework.
+        dir_department_framework_aqa: A folder path that contains a specific public sector department AQA framework.
         dir_cookiecutter_docs_aqa: A folder path within the outputted project structure, where the contents of
             `dir_department_framework_aqa` will reside.
 
@@ -33,19 +33,19 @@ def set_aqa_framework(dir_department_framework_aqa: Union[Path, str],
     # Remove the default `docs/aqa` folder, and its contents. Then recursively create a new folder path to here
     remove_folder(dir_cookiecutter_docs_aqa)
 
-    # Copy the relevant HM Government departmental AQA framework to the `docs/aqa` folder
+    # Copy the relevant public sector departmental AQA framework to the `docs/aqa` folder
     _ = Path(dir_department_framework_aqa).rename(dir_cookiecutter_docs_aqa)
 
 
 def set_request_template(path_department_framework_request_template: Union[Path, str],
                          dir_govcookiecutter: Union[Path, str], repository_hosting_platform: str) -> None:
-    """Set a pull or merge request template in the outputted project structure for a specific HM Government department.
+    """Set a pull or merge request template in the outputted project structure for a specific public sector department.
 
     A pull request template is created if the user chooses GitHub as their repository hosting platform. A merge request
     template is created if they choose GitLab instead.
 
     Args:
-        path_department_framework_request_template: A file path to the specific HM Government department pull or merge
+        path_department_framework_request_template: A file path to the specific public sector department pull or merge
             request template.
         dir_govcookiecutter: A folder path to the outputted `govcookiecutter` template.
         repository_hosting_platform: The repository hosting platform. Must be one of "GitHub" or "GitLab" (case

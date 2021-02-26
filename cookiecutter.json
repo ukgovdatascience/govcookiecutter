@@ -1,7 +1,7 @@
 {
   "_extensions": ["jinja2_time.TimeExtension"],
 
-  "department_name": "Your HM Government department",
+  "department_name": "Your public sector department",
   "repository_hosting_platform": ["GitHub", "GitLab"],
   "organisation_name": "Your GitHub/GitLab organisation name",
   "contact_email": "organisation@email.address",

@@ -11,7 +11,7 @@ still have questions, please [contact us][email] and we'd be happy to help!
   - [Markdown](#markdown)
 - [Testing](#testing)
 - [Documentation](#documentation)
-- [HM Government department frameworks](#hm-government-department-frameworks)
+- [Public sector department frameworks](#public-sector-department-frameworks)
 
 ## Code of Conduct
 
@@ -101,9 +101,9 @@ unless it's more appropriate to store it elsewhere, like this file.
 Further information on how to write Sphinx documentation, and how to build it into a searchable website can be found
 [here][docs-write-sphinx-documentation].
 
-## HM Government department frameworks
+## Public sector department frameworks
 
-HM Government frameworks are stored in the `.govcookiecutter/department_frameworks` folder. If you would like to add
+Public sector frameworks are stored in the `.govcookiecutter/department_frameworks` folder. If you would like to add
 your own department's framework, follow the [instructions][docs-govcookiecutter-frameworks] in the `README.md` file in
 that folder.
 

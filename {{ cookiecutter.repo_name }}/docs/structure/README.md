@@ -47,14 +47,16 @@ This file contains a `sed` command to output a `.env` file with all the environm
 sourcing environment variables, for example in conjunction with PyCharm's EnvFile plugin.
 
 To ensure this `sed` command works correctly, make sure any file paths listed in this file, and the
-[`.secrets`](#secrets) are absolute file paths, or relative file paths that do not use other environment variables.
-For example:
+[`.secrets`](#secrets) are absolute file paths (recommended), or relative file paths using other environment variables
+(works for Python users only). Environment variable names can only contain letters, numbers or underscores as well. For
+example:
 
 ```shell
-export DIR_DATA=$(pwd)/data  # fine
-export DIR_DATA_EXTERNAL=$(pwd)/data/external  # fine
-export DIR_DATA_EXTERNAL=./data/external  # fine
-export DIR_DATA_EXTERNAL=$DIR_DATA/external  # will break the `sed` command!
+export DIR_DATA=$(pwd)/data  # fine for Python and R users
+export DIR_DATA_EXTERNAL=$(pwd)/data/external  # fine for Python and R users
+export DIR_DATA_EXTERNAL=./data/external  # fine for Python and R users
+export DIR_DATA_EXTERNAL=$DIR_DATA/external  # fine for Python users only
+export DIR-DATA-EXTERNAL=$DIR_DATA/external  # will break the `sed` command!
 ```
 
 ### `.flake8`

@@ -2,9 +2,18 @@
 
 These `src` package functions create utility functions.
 
-<!-- Functions should be referenced in the `src.__init__.py` -->
 ```{eval-rst}
 .. currentmodule:: src
+```
+
+## Loading environment variables
+
+```{eval-rst}
+.. autosummary::
+    :toctree: api/
+
+    utils.load_dotenvrc
+
 ```
 
 ## Function heading

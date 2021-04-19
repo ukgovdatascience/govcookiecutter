@@ -16,12 +16,14 @@ We have only tested Windows support with the following requirements. Your experi
 ```
 
 - Windows 10 64-bit system; this process _may_ work for other Windows versions
-- User account with administrator privileges
-  - Might be able to use an account with [`SeCreateSymbolicLinkPrivilege` privilege][microsoft-security-symbolic-links]
-    privileges (untested)
 - Git for Windows [installed with the correct settings](#git-for-windows-setup)
-- Windows release of `direnv` [set up](#setting-up-direnv)
+- [Using ``load_dotenvrc`` in all files](#using-the-load_dotenvrc-function) or using the Windows release of `direnv`
+  [set up](#setting-up-direnv)
+  - If using `direnv`, you will need a user account with administrator privileges
+    - Might be able to use an account with
+      [`SeCreateSymbolicLinkPrivilege` privilege][microsoft-security-symbolic-links] privileges (untested)
 - Set up `Make` via `git-bash`
+  - This provides optional helper functions, but may require the same privileges as setting up `direnv` above
 
 ## Git for Windows setup
 
@@ -47,6 +49,24 @@ Otherwise, check the configuration options for your [existing install](#existing
       the `symlinks` value to `true`
 
 Once complete, you can now [set up `direnv`](#setting-up-direnv)
+
+## Using the `load_dotenvrc` function
+
+In the `src.utils` package there is a function called `load_dotenvrc`. This parses the `.envrc` file, creates a `.env`
+file suitable and then loads the environment variables using the [`python-dotenv`][python-dotenv] package.
+It will also load any `.envrc`-like file, such as the `.secrets` file, as has (limited) support for the `direnv`
+`source_env` and `source_env_if_exists` commands (see the `direnv` [documentation][direnv-source-env] for more details).
+Note, by default, it will override any existing environment variables with the same names.
+
+To use this function, at the top of each script and/or notebook that uses environment variables from `.envrc`, add the
+following lines:
+
+```python
+from src.utils import load_dotenvrc
+load_dotenvrc()
+```
+
+See the docstrings/documentation for `load_dotenvrc` for further information.
 
 ## Setting up `direnv`
 
@@ -134,9 +154,11 @@ Here are links to other useful instructions for getting this project running on 
 [direnv]: https://github.com/direnv/direnv/
 [direnv-issue-343]: https://github.com/direnv/direnv/issues/343#issuecomment-463502726
 [direnv-releases]: https://github.com/direnv/direnv/releases
+[direnv-source-env]: https://direnv.net/man/direnv-stdlib.1.html#codesourceenv-ltfileordirpathgtcode
 [git-for-windows]: https://gitforwindows.org/
 [git-for-windows-symbolic-links]: https://github.com/git-for-windows/git/wiki/Symbolic-Links
 [microsoft-security-symbolic-links]: https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/create-symbolic-links
+[python-dotenv]: https://saurabh-kumar.com/python-dotenv/
 [so-anaconda-git-bash]: https://stackoverflow.com/a/56170202
 [so-ezwinports]: https://stackoverflow.com/a/43779544
 [so-pycharm-git-bash]: https://stackoverflow.com/a/20611422

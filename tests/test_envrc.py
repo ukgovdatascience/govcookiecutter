@@ -1,61 +1,86 @@
-import os
-import re
+from pathlib import Path
+from typing import Dict, List
 
-# Define the cookiecutter directory
-DIR_COOKIECUTTER = "{{ cookiecutter.repo_name }}"
+# Define a path to the `govcookiecutter` template directory, and its `.envrc` file
+DIR_TEMPLATE = Path("{{ cookiecutter.repo_name }}")
+PATH_TEMPLATE_ENVRC = DIR_TEMPLATE.joinpath(".envrc")
 
-# Initialise an empty list to store the expected file paths
-DIRS_EXPECTED = []
-
-# Get all the directories within `DIR_COOKIECUTTER`, including all sub-folders (unless they are `docs`, or
-# `__pycache__` sub-folders)
-for root, dirs, _ in os.walk(DIR_COOKIECUTTER):
-    if (not os.path.join(DIR_COOKIECUTTER, "docs") in root) and ("__pycache__" not in root):
-        DIRS_EXPECTED += list(map(lambda d: os.path.join(os.getcwd(), root, d),
-                                  [d for d in dirs if "__pycache__" not in d]))
-
-# Get the expected environment variable names for the directories in `DIRS_EXPECTED`; we expect directory environment
-# variables to start with "DIR_", and then the path from the top-level to the folder in uppercase, where "/" is
-# replaced with "_". For example, a folder called "foo" with a sub-folder "bar" should have environment variables
-# "DIR_FOO" and "DIR_FOO_BAR", respectively
-ENV_DIRS_EXPECTED = [
-    "DIR" + p.replace(os.path.join(os.getcwd(), DIR_COOKIECUTTER), "").replace("/", "_").upper() for p in DIRS_EXPECTED
-]
-
-# Define the path to `.envrc`
-PATH_ENVRC = os.path.join(DIR_COOKIECUTTER, ".envrc")
-
-# Initialise an empty dictionary to store the environment variables
-dict_envrc = {}
-
-# Open the `.envrc` file for parsing
-with open(PATH_ENVRC) as f:
-
-    # For each line, check if it starts with `export `
-    for line in f.readlines():
-        if line.startswith("export "):
-
-            # Split out the value assigned to each environment variable
-            env_name, env_value = line.lstrip("export ").rstrip("\n").split("=", maxsplit=1)
-
-            # Replace any uses of `$(pwd)` with the current working directory
-            env_value = env_value.replace("$(pwd)", os.path.join(os.getcwd(), DIR_COOKIECUTTER))
-
-            # Convert any relative paths to absolute paths, and assign to `dict_envrc`
-            dict_envrc[env_name] = os.path.abspath(
-                os.path.join(DIR_COOKIECUTTER, env_value) if re.match(r"^\.+/", env_value) else env_value
-            )
-
-# Get just the directory environment variables from `dict_envrc`
-dict_envrc_dir = {k: v for k, v in dict_envrc.items() if k.startswith("DIR_")}
+# Define a list of directory names to recursively ignore, as well as a list of directory names to ignore at the
+# root-level of the `govcookiecutter` template directory, and a list of dictionary names to ignore in certain
+# root-level directories
+EXCLUDE_DIR_NAMES = ["__pycache__"]
+EXCLUDE_ROOT_DIR_NAMES = [*EXCLUDE_DIR_NAMES, ".govcookiecutter"]
+EXCLUDE_SUB_DIR_IN_PARENTS_NAMES = [*EXCLUDE_ROOT_DIR_NAMES, "docs"]
 
 
-def test_env_dirs_correct():
-    """Test that the .envrc values are correct for each directory environment variable"""
-    assert dict_envrc_dir == dict(zip(ENV_DIRS_EXPECTED, DIRS_EXPECTED))
+def get_actual_envrc_variables(path_envrc: Path) -> Dict[str, Path]:
+    """Get the export variables and values for directories in the `.envrc` file of the `govcookiecutter` template.
+
+    Args:
+        path_envrc: A file path to the `.envrc` file of the `govcookiecutter` template.
+
+    Returns:
+        A dictionary where the keys are the names of the export directory variables, and the values are the export
+        directory values.
+
+    """
+
+    # Instantiate a saving dictionary variable
+    envrc_actual_dir_variable = {}
+
+    # Open the `path_envrc` file, and get all export variables starting with `DIR`, and the values assigned to them,
+    # and return the output
+    with path_envrc.open() as f:
+        for line in f.readlines():
+            if line.startswith("export DIR"):
+                k, v = line.lstrip("export ").strip().replace("$(pwd)", path_envrc.parent.name).split("=")
+                envrc_actual_dir_variable[k] = Path(v)
+    return envrc_actual_dir_variable
 
 
-def test_env_dirs_exist():
-    """Test that all the directory environment variables exist as actual directories."""
-    for p in dict_envrc_dir.values():
-        assert os.path.isdir(p), f"Directory does not exist: {p}"
+def define_expected_envrc_variables(folder: Path, exclude_folders: List[str], exclude_root_folders: List[str],
+                                    exclude_sub_folders_in_parent_folders: List[str]) -> Dict[str, Path]:
+    """Get the expected export directory variables and values in the `.envrc` file of the `govcookiecutter` template.
+
+    Args:
+        folder: A folder path to the `govcookiecutter` template folder.
+        exclude_folders: A list of folder names to ignore when encountered.
+        exclude_root_folders: A list of root-level folder names in `folder` to ignore.
+        exclude_sub_folders_in_parent_folders: A list of folder names at the root-level of `folder` where their
+            sub-folders should be ignored.
+
+    Returns:
+        A dictionary where the keys are expected export directory variables, and the values are the expected export
+        directory values of the `.envrc` file in the `govcookiecutter` template directory `folder`.
+
+    """
+
+    # Get the names of all root-level directories in `folder`, where each name is in upper case in the format
+    # "DIR_<<<DIRECTORY_NAME>>>". Ignore any directories with a name in `exclude_root_folders`
+    envrc_expected_dir_variable = {
+        f"DIR_{d.name.upper()}": d for d in folder.glob("*") if d.is_dir() and d.name not in exclude_root_folders
+    }
+
+    # Get all sub-directory names one-level down from `folder`, where the directory name is not in `exclude_folders`,
+    # and the parent directory name is not in `exclude_sub_folders_in_parent_folders`. Each name is in upper case in
+    # the format "DIR_<<<PARENT_DIRECTORY_NAME>>>_<<<DIRECTORY_NAME>>>". Return `envrc_expected_dir_variable`
+    for d in folder.glob("*/*"):
+        if d.is_dir() and d.name not in exclude_folders and d.parent.name not in exclude_sub_folders_in_parent_folders:
+            envrc_expected_dir_variable[f"DIR_{d.parent.name.upper()}_{d.name.upper()}"] = d
+    return envrc_expected_dir_variable
+
+
+class TestEnvrcExportDirectories:
+
+    def test_values_are_directories(self) -> None:
+        """Test that the export values are real dictionaries."""
+        for n, d in get_actual_envrc_variables(PATH_TEMPLATE_ENVRC).items():
+            assert d.is_dir(), f"`{n}` variable directory does not exist: {d}"
+
+    def test_variables_as_expected(self) -> None:
+        """Test that the export directory variable and value names in `.envrc` are as expected."""
+
+        # Get the expected `.envrc` directory variables, and assert the actual variables are as expected
+        test_expected = define_expected_envrc_variables(DIR_TEMPLATE, EXCLUDE_DIR_NAMES, EXCLUDE_ROOT_DIR_NAMES,
+                                                        EXCLUDE_SUB_DIR_IN_PARENTS_NAMES)
+        assert get_actual_envrc_variables(PATH_TEMPLATE_ENVRC) == test_expected

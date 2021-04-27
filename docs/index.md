@@ -7,4 +7,5 @@ Here is the documentation for `govcookiecutter`.
 ./guides/README.md
 ./guides/contributing_guide.md
 ./structure/README.md
+./reference/README.md
 ```

@@ -1,4 +1,7 @@
 .PHONY:
+	coverage
+	coverage_html
+	coverage_xml
 	docs
 	docs_check_external_links
 	help
@@ -25,6 +28,18 @@ docs: prepare_docs_folder requirements
 ## Check external links in the Sphinx documentation using linkcheck in the docs/_build folder from a clean build
 docs_check_external_links: prepare_docs_folder requirements
 	sphinx-build -b linkcheck ./docs ./docs/_build
+
+## Run code coverage
+coverage: requirements
+	coverage run -m pytest
+
+## Run code coverage, and produce a HTML output
+coverage_html: coverage
+	coverage html
+
+## Run code coverage, and produce an XML output
+coverage_xml: coverage
+	coverage xml
 
 ## Get help on all make commands; referenced from https://github.com/drivendata/cookiecutter-data-science
 help:
